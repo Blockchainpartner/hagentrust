@@ -3,4 +3,5 @@ type ExampleEntity @entity {
   count: BigInt!
   issuer: Bytes! # address
   recipient: Bytes! # address
+  topic: Bytes! #bytes32
 }
