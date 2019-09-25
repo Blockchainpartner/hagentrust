@@ -1,0 +1,19 @@
+version: '3'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: the-graph-api
+    command:
+      - /bin/sh
+      - -c
+      - |
+        go get github.com/cespare/reflex
+        reflex -c ./reflex.conf
+    volumes:
+      - .:/go/src/github.com/Blockchainpartner/hagentrust
+    ports:
+      - 8080:8080
+    env_file:
+      - env.list
