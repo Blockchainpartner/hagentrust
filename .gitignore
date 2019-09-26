@@ -20,3 +20,5 @@ __debug_bin
 
 #logs file
 *.log
+
+env*.list
