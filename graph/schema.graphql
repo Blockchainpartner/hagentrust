@@ -1,6 +1,7 @@
 type ExampleEntity @entity {
   id: ID!
-  count: BigInt!
+  trustValue: BigDecimal!
   issuer: Bytes! # address
   recipient: Bytes! # address
+  topic: Bytes! #bytes32
 }

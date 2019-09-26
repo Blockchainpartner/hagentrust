@@ -2,12 +2,18 @@
   "name": "claimregistry",
   "license": "UNLICENSED",
   "scripts": {
-    "codegen": " codegen",
-    "build": " build",
-    "deploy": " deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ maximehg/claimregistry",
-    "create-local": " create --node http://localhost:8020/ maximehg/claimregistry",
-    "remove-local": " remove --node http://localhost:8020/ maximehg/claimregistry",
-    "deploy-local": " deploy --node http://localhost:8020/ --ipfs http://localhost:5001 maximehg/claimregistry"
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ maximehg/claimregistry",
+    "create-local": "graph create --node http://localhost:8020/ maximehg/claimregistry",
+    "remove-local": "graph remove --node http://localhost:8020/ maximehg/claimregistry",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 maximehg/claimregistry",
+    "codegen-windows": "graph.cmd codegen",
+    "build-windows": "graph.cmd build",
+    "deploy-windows": "graph.cmd deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ maximehg/claimregistry",
+    "create-local-windows": "graph.cmd create --node http://localhost:8020/ maximehg/claimregistry",
+    "remove-local-windows": "graph.cmd remove --node http://localhost:8020/ maximehg/claimregistry",
+    "deploy-local-windows": "graph.cmd deploy --node http://localhost:8020/ --ipfs http://localhost:5001 maximehg/claimregistry"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.15.0",

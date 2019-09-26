@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigDecimal, BigInt, log, store } from "@graphprotocol/graph-ts"
 import {
   Contract,
   ClaimSet,
@@ -9,23 +9,29 @@ import { ExampleEntity } from "../generated/schema"
 export function handleClaimSet(event: ClaimSet): void {
   // Entities can be loaded from the store using a string ID; this ID
   // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
+  let ID = event.params.issuer.toHex()+event.params.recipient.toHex()+event.params.topic.toHex();
+
+
+  let entity = ExampleEntity.load(ID);
 
   // Entities only exist after they have been saved to the store;
   // `null` checks allow to create entities on demand
   if (entity == null) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
-
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
+    entity = new ExampleEntity(ID);
   }
 
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
-
   // Entity fields can be set based on event parameters
-  entity.issuer = event.params.issuer
-  entity.recipient = event.params.recipient
+  entity.issuer = event.params.issuer;
+  entity.recipient = event.params.recipient;
+  entity.topic = event.params.topic;
+
+  let gasUsed = event.block.gasUsed;
+  let gasLimit = event.block.gasLimit;
+  let gasLimitDecimal = new BigDecimal(gasLimit);
+  let gasUsedDecimal = new BigDecimal(gasUsed);
+  let ratio = gasUsedDecimal.div(gasLimitDecimal);
+
+  entity.trustValue = ratio;
 
   // Entities can be written to the store with `.save()`
   entity.save()
@@ -59,4 +65,6 @@ export function handleClaimSet(event: ClaimSet): void {
   // - contract.getTopics(...)
 }
 
-export function handleClaimRemoved(event: ClaimRemoved): void {}
+export function handleClaimRemoved(event: ClaimRemoved): void {
+  store.remove('ExampleEntity', event.params.issuer.toHex()+event.params.recipient.toHex()+event.params.topic.toHex())
+}
