@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/Blockchainpartner/hagentrust/pkg/db"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 // A User is a user of the app, with his own credentials and token balance
